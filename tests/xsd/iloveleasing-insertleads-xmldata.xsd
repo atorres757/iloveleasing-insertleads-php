@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="LeadManagement">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Prospects"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Prospects">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Prospect"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Prospect">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="CustomerPreferences"/>
+        <xs:element ref="Customers"/>
+        <xs:element ref="Events"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CustomerPreferences">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="TargetMoveInDate"/>
+        <xs:element ref="DesiredFloorplan"/>
+        <xs:element ref="DesiredUnit"/>
+        <xs:element ref="DesiredRent"/>
+        <xs:element ref="DesiredNumBedrooms"/>
+        <xs:element ref="DesiredLeaseTerms"/>
+        <xs:element ref="NumberOfOccupants"/>
+        <xs:element maxOccurs="unbounded" ref="Comment"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TargetMoveInDate" type="xs:NMTOKEN"/>
+  <xs:element name="DesiredFloorplan" type="xs:string"/>
+  <xs:element name="DesiredUnit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="MarketingName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MarketingName" type="xs:string"/>
+  <xs:element name="DesiredRent">
+    <xs:complexType>
+      <xs:attribute name="Exact" use="required" type="xs:integer"/>
+      <xs:attribute name="Max" use="required" type="xs:integer"/>
+      <xs:attribute name="Min" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DesiredNumBedrooms">
+    <xs:complexType>
+      <xs:attribute name="Exact" use="required" type="xs:integer"/>
+      <xs:attribute name="Max" use="required" type="xs:integer"/>
+      <xs:attribute name="Min" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DesiredLeaseTerms" type="xs:string"/>
+  <xs:element name="NumberOfOccupants" type="xs:integer"/>
+  <xs:element name="Comment" type="xs:string"/>
+  <xs:element name="Customers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Customer"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Customer">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="Address"/>
+        <xs:element ref="Email"/>
+        <xs:element ref="Identification"/>
+        <xs:element ref="Name"/>
+        <xs:element ref="Phone"/>
+      </xs:choice>
+      <xs:attribute name="Type" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Address">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="AddressLine1"/>
+        <xs:element ref="City"/>
+        <xs:element ref="State"/>
+        <xs:element ref="PostalCode"/>
+      </xs:sequence>
+      <xs:attribute name="AddressType" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddressLine1" type="xs:string"/>
+  <xs:element name="City" type="xs:NCName"/>
+  <xs:element name="State" type="xs:NCName"/>
+  <xs:element name="PostalCode" type="xs:string"/>
+  <xs:element name="Email" type="xs:string"/>
+  <xs:element name="Identification">
+    <xs:complexType>
+      <xs:attribute name="IDType" use="required" type="xs:NCName"/>
+      <xs:attribute name="IDValue" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Name">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="FirstName"/>
+        <xs:element ref="LastName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Phone">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PhoneNumber"/>
+      </xs:sequence>
+      <xs:attribute name="PhoneType" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PhoneNumber" type="xs:string"/>
+  <xs:element name="Events">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Event"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Event">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="Agent"/>
+        <xs:element ref="FirstContact"/>
+      </xs:choice>
+      <xs:attribute name="EventDate" use="required"/>
+      <xs:attribute name="EventType" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Agent">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="AgentName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AgentName">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="FirstName"/>
+        <xs:element ref="LastName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FirstContact" type="xs:boolean"/>
+  <xs:element name="FirstName" type="xs:NCName"/>
+  <xs:element name="LastName" type="xs:NCName"/>
+</xs:schema>

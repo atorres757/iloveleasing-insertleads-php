@@ -1,0 +1,50 @@
+<project name="iloveleasing/insertleads" default="dist" basedir=".">
+  <description>
+    "PHP API for the ILoveLeasing InsertLeads SOAP Service."
+  </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist" location="dist"/>
+  <property name="tests" location="tests" />
+  <property name="tools.dir" value="${basedir}/vendor/bin"/>
+  
+  <target name="prepare"
+            unless="prepare.done"
+            description="Prepare for build">
+        <exec executable="composer">
+            <arg value="install"/>
+        </exec>
+        <property name="prepare.done" value="true"/>
+    </target>
+  
+  <target name="dist" depends="phpunit" />
+
+  <target name="phpcs"
+        depends="prepare"
+        description="PHP Coding Standards">
+        <exec executable="${tools.dir}/phpcs" failonerror="true">
+            <arg value="--standard=${basedir}/build/phpcs.xml" />
+            <arg value="--extensions=php" />
+            <arg value="--report-width=120" />
+            <arg value="--report-full" />
+            <arg value="-n"/>
+            <arg path="${basedir}/src" />
+            <arg path="${basedir}/tests" />
+        </exec>
+    </target>
+    
+    <target name="phpunit"
+        depends="prepare"
+            description="Run unit tests with PHPUnit">
+            
+        <exec executable="php" failonerror="true">
+            <arg line="${tools.dir}/phpunit"/>
+            <arg value="--configuration"/>
+            <arg path="${basedir}/tests/phpunit.xml"/>
+            <arg value="--coverage-php"/>
+            <arg path="${tmp.dir}/cov/coverage-web-unit.cov"/>
+        </exec>
+        
+    </target>
+</project>

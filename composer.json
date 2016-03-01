@@ -1,0 +1,26 @@
+{
+    "name": "iloveleasing/insertleads-php",
+    "description": "PHP API for the ILoveLeasing InsertLeads SOAP Service.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Allen Torres",
+            "email": "allen.torres@forrent.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^5.6",
+        "jms/serializer": "^1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.1",
+        "squizlabs/php_codesniffer": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "ILoveLeasing\\": "src/ILoveLeasing/"
+        }
+    }
+}
