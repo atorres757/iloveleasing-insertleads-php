@@ -38,6 +38,18 @@ class InsertLeads extends \SoapClient
      */
     public function __construct($wsdl = null, array $options = array())
     {
+        // SOAP 1.2 client
+        $soap12Opts = array (
+            'soap_version' => SOAP_1_2,
+            //'trace' => 1,
+            'stream_context' => stream_context_create(array(
+                'ssl' => array(
+                    'ciphers'=>'RC4-SHA'
+                )
+            ))
+        );
+        $options = array_merge($soap12Opts, $options);
+        
         foreach ($this->classmap as $key => $value) {
             if (! isset($options['classmap'][$key])) {
                 $options['classmap'][$key] = $value;
@@ -46,6 +58,7 @@ class InsertLeads extends \SoapClient
         if (isset($options['headers'])) {
             $this->__setSoapHeaders($options['headers']);
         }
+        
         parent::__construct($wsdl ?  : self::WSDL_FILE, $options);
     }
 
