@@ -13,6 +13,7 @@ class Event
 {
     
     const TYPE_EMAIL_FROM_PROSPECT = 'EmailFromProspect';
+    const TYPE_CALL_FROM_PROSPECT = 'CallFromProspect';
 
     /**
      * @XmlAttribute

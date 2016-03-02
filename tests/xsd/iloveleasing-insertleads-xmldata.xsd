@@ -26,13 +26,13 @@
   <xs:element name="CustomerPreferences">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="TargetMoveInDate"/>
-        <xs:element ref="DesiredFloorplan"/>
-        <xs:element ref="DesiredUnit"/>
-        <xs:element ref="DesiredRent"/>
-        <xs:element ref="DesiredNumBedrooms"/>
-        <xs:element ref="DesiredLeaseTerms"/>
-        <xs:element ref="NumberOfOccupants"/>
+        <xs:element ref="TargetMoveInDate" minOccurs="0"/>
+        <xs:element ref="DesiredFloorplan" minOccurs="0"/>
+        <xs:element ref="DesiredUnit" minOccurs="0"/>
+        <xs:element ref="DesiredRent" minOccurs="0"/>
+        <xs:element ref="DesiredNumBedrooms" minOccurs="0"/>
+        <xs:element ref="DesiredLeaseTerms" minOccurs="0"/>
+        <xs:element ref="NumberOfOccupants" minOccurs="0"/>
         <xs:element maxOccurs="unbounded" ref="Comment"/>
       </xs:sequence>
     </xs:complexType>
@@ -49,16 +49,16 @@
   <xs:element name="MarketingName" type="xs:string"/>
   <xs:element name="DesiredRent">
     <xs:complexType>
-      <xs:attribute name="Exact" use="required" type="xs:integer"/>
-      <xs:attribute name="Max" use="required" type="xs:integer"/>
-      <xs:attribute name="Min" use="required" type="xs:integer"/>
+      <xs:attribute name="Exact" type="xs:integer"/>
+      <xs:attribute name="Max" type="xs:integer"/>
+      <xs:attribute name="Min" type="xs:integer"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="DesiredNumBedrooms">
     <xs:complexType>
-      <xs:attribute name="Exact" use="required" type="xs:integer"/>
-      <xs:attribute name="Max" use="required" type="xs:integer"/>
-      <xs:attribute name="Min" use="required" type="xs:integer"/>
+      <xs:attribute name="Exact" type="xs:integer"/>
+      <xs:attribute name="Max" type="xs:integer"/>
+      <xs:attribute name="Min" type="xs:integer"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="DesiredLeaseTerms" type="xs:string"/>
@@ -74,7 +74,7 @@
   <xs:element name="Customer">
     <xs:complexType mixed="true">
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="Address"/>
+        <xs:element ref="Address" minOccurs="0"/>
         <xs:element ref="Email"/>
         <xs:element ref="Identification"/>
         <xs:element ref="Name"/>

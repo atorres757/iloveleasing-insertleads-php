@@ -83,12 +83,15 @@ class LeadMapper
         $propName->setIDValue($lead->propertyName);
         $customer->addToIdentification($propName);
         
-        $address = new Address();
-        $address->setAddressLine1($lead->street);
-        $address->setCity($lead->city);
-        $address->setState($lead->stateCode);
-        $address->setPostalCode($lead->postalCode);
-        $customer->addToAddress($address);
+        if (isset($lead->street) || isset($lead->city) || isset($lead->stateCode) || isset($lead->postalCode)) {
+            $address = new Address();
+            $address->setAddressType(Address::TYPE_CURRENT);
+            $address->setAddressLine1($lead->street);
+            $address->setCity($lead->city);
+            $address->setState($lead->stateCode);
+            $address->setPostalCode($lead->postalCode);
+            $customer->addToAddress($address);
+        }
         
         // event
         $events = new Events();
@@ -97,12 +100,14 @@ class LeadMapper
         $event->setEventDate($lead->submitDate);
         $events->setEvent($event);
         
-        $agent = new Agent();
-        $agentName = new AgentName();
-        $agentName->setFirstName($lead->agentFirstName);
-        $agentName->setLastName($lead->agentLastName);
-        $agent->setAgentName($agentName);
-        $event->addToAgent($agent);
+        if (isset($lead->agentFirstName) || isset($lead->agentLastName)) {
+            $agent = new Agent();
+            $agentName = new AgentName();
+            $agentName->setFirstName($lead->agentFirstName);
+            $agentName->setLastName($lead->agentLastName);
+            $agent->setAgentName($agentName);
+            $event->addToAgent($agent);
+        }
         
         // propspect
         $prospect = new Prospect();

@@ -2,6 +2,8 @@
 .settings
 .buildpath
 
+*.debug.xml
+
 composer.phar
 /vendor/
 

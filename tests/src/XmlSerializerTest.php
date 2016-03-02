@@ -19,6 +19,8 @@ use ILoveLeasing\XmlData\Customers;
 use ILoveLeasing\XmlData\Events;
 use ILoveLeasing\XmlData\LeadManagement;
 use ILoveLeasing\XmlData\Prospects;
+use ILoveLeasing\Lead;
+use ILoveLeasing\LeadMapper;
 
 
 class XmlSerializerTest extends PHPUnit_Framework_TestCase
@@ -26,7 +28,7 @@ class XmlSerializerTest extends PHPUnit_Framework_TestCase
     /**
      * Test to verify php objects serialize and pass xsd.
      */
-    public function testXmlSerializer()
+    public function testXmlSerializerWithAllData()
     {
         // customer preference
         $customerPref = new CustomerPreferences();
@@ -75,6 +77,7 @@ class XmlSerializerTest extends PHPUnit_Framework_TestCase
         $customer->addToIdentification($propName);
         
         $address = new Address();
+        $address->setAddressType(Address::TYPE_CURRENT);
         $address->setAddressLine1("123 Testing St.");
         $address->setCity("Norfolk");
         $address->setState("VA");
@@ -112,19 +115,60 @@ class XmlSerializerTest extends PHPUnit_Framework_TestCase
         $serializer = new XmlSerializer();
         $leadXml = $serializer->serialize($leadManage);
         
-        $doc = new \DOMDocument();
-        $leadDoc = simplexml_load_string($leadXml);
+        // uncomment to debug xml
+        //file_put_contents(realpath(dirname(__FILE__)) . "/" . __METHOD__ . ".debug.xml", $leadXml);
+        
+        $this->validateXml($leadXml);
+    }
+    
+    /**
+     * Test xml validation against required fields
+     */
+    public function testXmlSerializerWithLimitedLeadData()
+    {
+        $lead = new Lead();
+        $lead->firstName = "Allen";
+        $lead->lastName = "Torres";
+        $lead->email = "someemail@bogus.tld";
+        $lead->maxBeds = 2;
+        $lead->maxPrice = 1000;
+        $lead->targetMoveInDate = "2016-03-15";
+        $lead->comment = "testing";
+        $lead->homePhone = "7571231212";
+        $lead->submitDate = "2016-02-01";
+        $lead->propertyId = "999000999";
+        $lead->propertyName = "Test Property";
+        
+        $mapper = new LeadMapper();
+        $leadManage = new LeadManagement();
+        $leadManage = $mapper->leadToLeadManagement($lead);
+        
+        $serializer = new XmlSerializer();
+        $leadXml = $serializer->serialize($leadManage);
         
         // uncomment to debug xml
-        //file_put_contents(realpath(dirname(__FILE__)) . "/ill-xml-data.xml", $leadDoc->asXML());
+        //file_put_contents(realpath(dirname(__FILE__)) . "/" . __METHOD__ . ".debug.xml", $leadXml);
         
-        $doc->loadXML( $leadDoc->asXML() );
+        $this->validateXml($leadXml);
+    }
+    
+    /**
+     * Helper function to validate xml against an xsd
+     * 
+     * @param string $xml
+     */
+    public function validateXml($xml)
+    {
+        $doc = new \DOMDocument();
+        $leadDoc = simplexml_load_string($xml);
+        
+        $doc->loadXML($leadDoc->asXML());
         $this->assertTrue(
             $doc->schemaValidate(
                 realpath(dirname(__FILE__) . "/../xsd")."/iloveleasing-insertleads-xmldata.xsd"
-            ),
+                ),
             true
-        );
+            );
     }
 
 }

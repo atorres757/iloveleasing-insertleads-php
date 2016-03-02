@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation\XmlAttribute;
  */
 class Address
 {
+    const TYPE_CURRENT = "current";
 
     /**
      * @SerializedName("AddressType")
@@ -17,7 +18,7 @@ class Address
      * 
      * @property string $addressType
      */
-    private $addressType = "current";
+    private $addressType = null;
 
     /**
      * @SerializedName("AddressLine1")
