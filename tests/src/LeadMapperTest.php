@@ -13,7 +13,9 @@ class LeadMapperTest extends PHPUnit_Framework_TestCase
         $lead->lastName = "Torres";
         $lead->email = "someemail@bogus.tld";
         $lead->maxBeds = 2;
+        $lead->exactBeds = 2;
         $lead->maxPrice = 1000;
+        $lead->exactPrice = 1000;
         $lead->targetMoveInDate = "2016-03-15";
         $lead->comment = "testing";
         $lead->homePhone = "7571231212";
@@ -59,9 +61,17 @@ class LeadMapperTest extends PHPUnit_Framework_TestCase
             $pref->getDesiredNumBedrooms()->getMax()
         );
         $this->assertEquals(
+            $lead->exactBeds,
+            $pref->getDesiredNumBedrooms()->getExact()
+            );
+        $this->assertEquals(
             $lead->maxPrice,
             $pref->getDesiredRent()->getMax()
         );
+        $this->assertEquals(
+            $lead->exactPrice,
+            $pref->getDesiredRent()->getExact()
+            );
         $this->assertEquals(
             $lead->comment,
             $pref->getComment()[0]

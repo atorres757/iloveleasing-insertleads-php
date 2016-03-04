@@ -44,11 +44,11 @@ class LeadMapper
         $customerPref->addToComment($comment);
         
         $desBeds = new DesiredNumBedrooms();
-        $desBeds->setMin($lead->minBeds)->setMax($lead->maxBeds);
+        $desBeds->setMin($lead->minBeds)->setMax($lead->maxBeds)->setExact($lead->exactBeds);
         $customerPref->setDesiredNumBedrooms($desBeds);
         
         $desRent = new DesiredRent();
-        $desRent->setMax($lead->maxPrice)->setMin($lead->minPrice);
+        $desRent->setMax($lead->maxPrice)->setMin($lead->minPrice)->setExact($lead->exactPrice);
         $customerPref->setDesiredRent($desRent);
         
         $desUnit = new DesiredUnit();

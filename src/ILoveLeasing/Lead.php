@@ -124,6 +124,13 @@ class Lead
     public $maxBeds;
     
     /**
+     * Exact Beds.
+     * 
+     * @var integer
+     */
+    public $exactBeds;
+    
+    /**
      * Minimum Price.
      *
      * @var float
@@ -136,6 +143,13 @@ class Lead
      * @var float
      */
     public $maxPrice;
+    
+    /**
+     * Exact Price.
+     *
+     * @var float
+     */
+    public $exactPrice;
     
     /**
      * Property Identifier.
