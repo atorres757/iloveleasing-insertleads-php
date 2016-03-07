@@ -4,13 +4,16 @@ namespace ILoveLeasing;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
-// Load Doctrine Annotations for JMS Serializer
-AnnotationRegistry::registerAutoloadNamespace(
-    'JMS\Serializer\Annotation',
-    realpath(dirname(__FILE__).'/../..') . "/vendor/jms/serializer/src");
-
 class XmlSerializer
 {
+    /**
+     * Construct.
+     */
+    public function __construct()
+    {
+        
+    }
+    
     /**
      * Returns an xml representation of the object.
      *
