@@ -40,13 +40,7 @@ class InsertLeads extends \SoapClient
     {
         // SOAP 1.2 client
         $soap12Opts = array (
-            'soap_version' => SOAP_1_2,
-            //'trace' => 1,
-            'stream_context' => stream_context_create(array(
-                'ssl' => array(
-                    'ciphers'=>'RC4-SHA'
-                )
-            ))
+            'soap_version' => SOAP_1_2
         );
         $options = array_merge($soap12Opts, $options);
         
